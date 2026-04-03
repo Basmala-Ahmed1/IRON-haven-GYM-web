@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IRON HAVEN | Premium Performance Gym</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @tailwind base;
+        @tailwind components;
+        @tailwind utilities;
+
+        :root {
+            --brand-red: #ff0000;
+            --brand-dark: #0a0a0a;
+            --brand-gray: #1a1a1a;
+        }
+
+        @layer base {
+            html {
+                scroll-behavior: smooth;
+            }
+            body {
+                background-color: var(--brand-dark);
+                color: white;
+                font-family: 'Inter', sans-serif;
+                -webkit-font-smoothing: antialiased;
+            }
+            h1, h2, h3, h4 {
+                font-family: 'Outfit', sans-serif;
+                text-transform: uppercase;
+                letter-spacing: -0.05em;
+            }
+        }
+
+        .bg-brand-dark { background-color: var(--brand-dark); }
+        .bg-brand-gray { background-color: var(--brand-gray); }
+        .bg-brand-red { background-color: var(--brand-red); }
+        .text-brand-red { color: var(--brand-red); }
+        .border-brand-red { border-color: var(--brand-red); }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal-left.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal-right.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.95);
+            transition: all 0.8s ease-out;
+        }
+        .reveal-scale.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .bg-noise {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.05;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            red: '#ff0000',
+                            dark: '#0a0a0a',
+                            gray: '#1a1a1a',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="min-h-screen">
+    <!-- Navbar -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-brand-dark/80 backdrop-blur-md border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <a href="#" class="flex items-center gap-2">
+                    <div class="w-10 h-10 bg-brand-red flex items-center justify-center rounded-sm rotate-45">
+                        <i data-lucide="dumbbell" class="-rotate-45 text-white w-6 h-6"></i>
+                    </div>
+                    <span class="font-display text-2xl font-black tracking-tighter">IRON HAVEN</span>
+                </a>
+            </div>
+            <div class="hidden lg:flex items-center gap-8 text-sm font-bold uppercase tracking-widest text-gray-400">
+                <a href="#about" class="hover:text-white transition-colors">About</a>
+                <a href="#services" class="hover:text-white transition-colors">Services</a>
+                <a href="#membership" class="hover:text-white transition-colors">Membership</a>
+                <a href="#coaches" class="hover:text-white transition-colors">Coaches</a>
+                <a href="#schedule" class="hover:text-white transition-colors">Schedule</a>
+                <a href="#contact" class="hover:text-white transition-colors">Contact</a>
+            </div>
+            <a href="#contact" class="bg-white text-black px-6 py-2 rounded-full font-bold text-sm uppercase tracking-tighter hover:bg-brand-red hover:text-white transition-all">
+                Join Now
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="relative min-h-screen flex items-center pt-20 overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img 
+                src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop" 
+                alt="Gym Background" 
+                class="w-full h-full object-cover opacity-40 grayscale"
+                referrerPolicy="no-referrer"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/60 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-brand-dark via-transparent to-transparent"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="max-w-3xl reveal active">
+                <span class="inline-block bg-brand-red text-white text-[10px] font-black uppercase tracking-[0.3em] px-3 py-1 mb-6">
+                    Premium Performance Center
+                </span>
+                <h1 class="text-6xl md:text-8xl font-black leading-[0.9] mb-8">
+                    FORGE YOUR <br />
+                    <span class="text-brand-red">LEGACY.</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-400 mb-10 leading-relaxed font-medium">
+                    The elite training environment for those who demand more from themselves. 
+                    Stop wishing. Start dominating.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#contact" class="group bg-brand-red text-white px-10 py-5 rounded-sm font-black text-lg uppercase tracking-tighter flex items-center justify-center gap-3 hover:scale-105 transition-transform">
+                        Start Today
+                        <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                    <a href="#contact" class="bg-transparent border-2 border-white/20 text-white px-10 py-5 rounded-sm font-black text-lg uppercase tracking-tighter hover:bg-white hover:text-black transition-all text-center">
+                        Book Free Session
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="absolute bottom-0 right-0 p-10 hidden lg:block">
+            <div class="flex gap-12">
+                <div>
+                    <div class="text-4xl font-black">500+</div>
+                    <div class="text-xs uppercase tracking-widest text-gray-500">Active Members</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-black">15+</div>
+                    <div class="text-xs uppercase tracking-widest text-gray-500">Elite Coaches</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="py-32 bg-brand-dark relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-20 items-center">
+                <div class="relative reveal-left">
+                    <div class="aspect-square bg-brand-gray rounded-sm overflow-hidden border border-white/5">
+                        <img 
+                            src="https://images.unsplash.com/photo-1593079831268-3381b0db4a77?q=80&w=2069&auto=format&fit=crop" 
+                            alt="Transformation" 
+                            class="w-full h-full object-cover grayscale hover:scale-110 transition-transform duration-700"
+                            referrerPolicy="no-referrer"
+                        />
+                    </div>
+                    <div class="absolute -bottom-10 -right-10 w-64 h-64 bg-brand-red/10 -z-10 blur-3xl"></div>
+                </div>
+
+                <div class="reveal-right">
+                    <h2 class="text-4xl md:text-5xl font-black mb-8">
+                        WE DON'T DO <br />
+                        <span class="text-brand-red">AVERAGE.</span>
+                    </h2>
+                    <p class="text-lg text-gray-400 mb-8 leading-relaxed">
+                        Iron Haven isn't just a gym; it's a crucible. We provide the tools, the atmosphere, 
+                        and the expert guidance to strip away your limits. Whether you're looking to 
+                        shred fat or stack lean muscle, we focus on one thing: <strong>Results.</strong>
+                    </p>
+                    <div class="grid grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="text-white font-bold mb-2">DISCIPLINE</h4>
+                            <p class="text-sm text-gray-500">Motivation gets you started. Discipline keeps you growing.</p>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-bold mb-2">TRANSFORMATION</h4>
+                            <p class="text-sm text-gray-500">We don't just change bodies; we rebuild mindsets.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services" class="py-32 bg-brand-gray">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20 reveal">
+                <h2 class="text-5xl font-black mb-4">OUR SERVICES</h2>
+                <p class="text-gray-500 uppercase tracking-widest text-sm">Choose your path to greatness</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Service 1 -->
+                <div class="reveal group relative bg-brand-dark border border-white/5 p-8 rounded-sm overflow-hidden hover:border-brand-red/50 transition-all">
+                    <div class="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity">
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=2070&auto=format&fit=crop" alt="Personal Training" class="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                    </div>
+                    <div class="relative z-10">
+                        <div class="mb-6"><i data-lucide="users" class="w-8 h-8 text-brand-red"></i></div>
+                        <h3 class="text-xl font-black mb-4 group-hover:text-brand-red transition-colors">Personal Training</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">1-on-1 elite coaching tailored to your specific goals and biology.</p>
+                    </div>
+                </div>
+                <!-- Service 2 -->
+                <div class="reveal group relative bg-brand-dark border border-white/5 p-8 rounded-sm overflow-hidden hover:border-brand-red/50 transition-all" style="transition-delay: 0.1s;">
+                    <div class="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity">
+                        <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?q=80&w=2070&auto=format&fit=crop" alt="Group Classes" class="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                    </div>
+                    <div class="relative z-10">
+                        <div class="mb-6"><i data-lucide="zap" class="w-8 h-8 text-brand-red"></i></div>
+                        <h3 class="text-xl font-black mb-4 group-hover:text-brand-red transition-colors">Group Classes</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">High-intensity sessions that push you further through collective energy.</p>
+                    </div>
+                </div>
+                <!-- Service 3 -->
+                <div class="reveal group relative bg-brand-dark border border-white/5 p-8 rounded-sm overflow-hidden hover:border-brand-red/50 transition-all" style="transition-delay: 0.2s;">
+                    <div class="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity">
+                        <img src="https://images.unsplash.com/photo-1581009146145-b5ef03a74010?q=80&w=2070&auto=format&fit=crop" alt="Strength & Conditioning" class="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                    </div>
+                    <div class="relative z-10">
+                        <div class="mb-6"><i data-lucide="dumbbell" class="w-8 h-8 text-brand-red"></i></div>
+                        <h3 class="text-xl font-black mb-4 group-hover:text-brand-red transition-colors">Strength & Conditioning</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">Build raw power and functional athleticism with proven methodologies.</p>
+                    </div>
+                </div>
+                <!-- Service 4 -->
+                <div class="reveal group relative bg-brand-dark border border-white/5 p-8 rounded-sm overflow-hidden hover:border-brand-red/50 transition-all" style="transition-delay: 0.3s;">
+                    <div class="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity">
+                        <img src="https://images.unsplash.com/photo-1507398941214-57f516d901ca?q=80&w=1974&auto=format&fit=crop" alt="Fat Loss Programs" class="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                    </div>
+                    <div class="relative z-10">
+                        <div class="mb-6"><i data-lucide="trophy" class="w-8 h-8 text-brand-red"></i></div>
+                        <h3 class="text-xl font-black mb-4 group-hover:text-brand-red transition-colors">Fat Loss Programs</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">Aggressive, science-backed nutrition and training to reveal your best self.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Membership -->
+    <section id="membership" class="py-32 bg-brand-dark">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20 reveal">
+                <h2 class="text-5xl font-black mb-4">MEMBERSHIP PLANS</h2>
+                <p class="text-gray-500 uppercase tracking-widest text-sm">Invest in your strongest self</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Basic -->
+                <div class="reveal relative p-10 rounded-sm border border-white/5 bg-brand-gray flex flex-col">
+                    <h3 class="text-2xl font-black mb-2">Basic</h3>
+                    <div class="flex items-baseline gap-1 mb-8">
+                        <span class="text-4xl font-black">$49</span>
+                        <span class="text-gray-500 text-sm">/mo</span>
+                    </div>
+                    <ul class="space-y-4 mb-10 flex-grow">
+                        <li class="flex items-center gap-3 text-gray-400 text-sm"><i data-lucide="check-circle-2" class="w-4 h-4 text-brand-red"></i> Gym Access</li>
+                        <li class="flex items-center gap-3 text-gray-400 text-sm"><i data-lucide="check-circle-2" class="w-4 h-4 text-brand-red"></i> Locker Room</li>
+                        <li class="flex items-center gap-3 text-gray-400 text-sm"><i data-lucide="check-circle-2" class="w-4 h-4 text-brand-red"></i> Free WiFi</li>
+                        <li class="flex items-center gap-3 text-gray-400 text-sm"><i data-lucide="check-circle-2" class="w-4 h-4 text-brand-red"></i> 1 Guest Pass/mo</li>
+                    </ul>
+                    <a href="#contact" class="w-full py-4 rounded-sm font-black text-sm uppercase tracking-tighter text-center transition-all bg-white text-black hover:bg-brand-red hover:text-white">Get Started</a>
+                </div>
+                <!-- Pro -->
+                <div class="reveal relative p-10 rounded-sm border border-brand-red bg-brand-red/5 flex flex-col" style="transition-delay: 0.1s;">
+                    <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-brand-red text-white text-[10px] font-black uppercase tracking-widest px-4 py-1 rounded-full">Recommended</div>
+                    <h3 class="text-2xl font-black mb-2">Pro</h3>
+                    <div class="flex items-baseline gap-1 mb-8">
+                        <span class="text-4xl font-black">$79</span>
+                        <span class="text-gray-500 text-sm">/mo</span>
+                    </div>
+                    <ul class="space-y-4 mb-10 flex-grow">
+                        <li class="flex items-center gap-3 text-gray-400 text-sm"><i data-lucide="check-circle-2" class="w-4 h-4 text-brand-red"></i> All Basic Features</li>
+                        <li class="flex items-center gap-3 text-gray-400 text-sm"><i data-lucide="check-circle-2" class="w-4 h-4 text-brand-red"></i> Group Classes</li>
+                        <li class="flex items-center gap-3 text-gray-400 text-sm"><i data-lucide="check-circle-2" class="w-4 h-4 text-brand-red"></i> Personalized Plan</li>
+                        <li class="flex items-center gap-3 text-gray-400 text-sm"><i data-lucide="check-circle-2" class="w-4 h-4 text-brand-red"></i> Unlimited Guest Passes</li>
+                    </ul>
+                    <a href="#contact" class="w-full py-4 rounded-sm font-black text-sm uppercase tracking-tighter text-center transition-all bg-brand-red text-white hover:bg-white hover:text-black">Get Started</a>
+                </div>
+                <!-- Elite -->
+                <div class="reveal relative p-10 rounded-sm border border-white/5 bg-brand-gray flex flex-col" style="transition-delay: 0.2s;">
+                    <h3 class="text-2xl font-black mb-2">Elite</h3>
+                    <div class="flex items-baseline gap-1 mb-8">
+                        <span class="text-4xl font-black">$129</span>
+                        <span class="text-gray-500 text-sm">/mo</span>
+                    </div>
+                    <ul class="space-y-4 mb-10 flex-grow">
+                        <li class="flex items-center gap-3 text-gray-400 text-sm"><i data-lucide="check-circle-2" class="w-4 h-4 text-brand-red"></i> All Pro Features</li>
+                        <li class="flex items-center gap-3 text-gray-400 text-sm"><i data-lucide="check-circle-2" class="w-4 h-4 text-brand-red"></i> 1-on-1 Coaching</li>
+                        <li class="flex items-center gap-3 text-gray-400 text-sm"><i data-lucide="check-circle-2" class="w-4 h-4 text-brand-red"></i> Nutrition Guide</li>
+                        <li class="flex items-center gap-3 text-gray-400 text-sm"><i data-lucide="check-circle-2" class="w-4 h-4 text-brand-red"></i> Recovery Zone Access</li>
+                    </ul>
+                    <a href="#contact" class="w-full py-4 rounded-sm font-black text-sm uppercase tracking-tighter text-center transition-all bg-white text-black hover:bg-brand-red hover:text-white">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section id="why" class="py-32 bg-brand-dark">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-20 items-center">
+                <div class="reveal-left">
+                    <h2 class="text-5xl font-black mb-12">WHY IRON HAVEN?</h2>
+                    <div class="space-y-8">
+                        <div class="flex gap-6">
+                            <div class="mt-1"><i data-lucide="check-circle-2" class="w-6 h-6 text-brand-red"></i></div>
+                            <div>
+                                <h4 class="text-xl font-black mb-2">PROVEN RESULTS</h4>
+                                <p class="text-gray-500">Thousands of transformations. Real people, real strength.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6">
+                            <div class="mt-1"><i data-lucide="check-circle-2" class="w-6 h-6 text-brand-red"></i></div>
+                            <div>
+                                <h4 class="text-xl font-black mb-2">ELITE COACHES</h4>
+                                <p class="text-gray-500">Not just trainers. Mentors who live the lifestyle.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6">
+                            <div class="mt-1"><i data-lucide="check-circle-2" class="w-6 h-6 text-brand-red"></i></div>
+                            <div>
+                                <h4 class="text-xl font-black mb-2">PREMIUM EQUIPMENT</h4>
+                                <p class="text-gray-500">The best gear for the best performance. No compromises.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6">
+                            <div class="mt-1"><i data-lucide="check-circle-2" class="w-6 h-6 text-brand-red"></i></div>
+                            <div>
+                                <h4 class="text-xl font-black mb-2">WARRIOR COMMUNITY</h4>
+                                <p class="text-gray-500">Surround yourself with people who push you to be better.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4 reveal-right">
+                    <div class="space-y-4">
+                        <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?q=80&w=2070&auto=format&fit=crop" alt="Gym 1" class="rounded-sm grayscale hover:grayscale-0 transition-all duration-500" referrerPolicy="no-referrer" />
+                        <img src="https://images.unsplash.com/photo-1594381898411-846e7d193883?q=80&w=1974&auto=format&fit=crop" alt="Gym 2" class="rounded-sm grayscale hover:grayscale-0 transition-all duration-500" referrerPolicy="no-referrer" />
+                    </div>
+                    <div class="space-y-4 pt-12">
+                        <img src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?q=80&w=1974&auto=format&fit=crop" alt="Gym 3" class="rounded-sm grayscale hover:grayscale-0 transition-all duration-500" referrerPolicy="no-referrer" />
+                        <img src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?q=80&w=2069&auto=format&fit=crop" alt="Gym 4" class="rounded-sm grayscale hover:grayscale-0 transition-all duration-500" referrerPolicy="no-referrer" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Coaches -->
+    <section id="coaches" class="py-32 bg-brand-gray">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20 reveal">
+                <h2 class="text-5xl font-black mb-4">MEET THE ELITE</h2>
+                <p class="text-gray-500 uppercase tracking-widest text-sm">Coached by the best in the industry</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Coach 1 -->
+                <div class="reveal-scale group relative aspect-[3/4] overflow-hidden rounded-sm border border-white/5">
+                    <img src="https://images.unsplash.com/photo-1567013127542-490d757e51fc?q=80&w=1974&auto=format&fit=crop" alt="Jack 'The Tank' Miller" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700" referrerPolicy="no-referrer" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-8">
+                        <p class="text-brand-red text-xs font-black uppercase tracking-widest mb-2">Head Strength Coach</p>
+                        <h3 class="text-2xl font-black mb-1">Jack 'The Tank' Miller</h3>
+                        <p class="text-gray-400 text-sm">Powerlifting & Hypertrophy</p>
+                    </div>
+                </div>
+                <!-- Coach 2 -->
+                <div class="reveal-scale group relative aspect-[3/4] overflow-hidden rounded-sm border border-white/5" style="transition-delay: 0.1s;">
+                    <img src="https://images.unsplash.com/photo-1597452485669-2c7bb5fef90d?q=80&w=1974&auto=format&fit=crop" alt="Mike 'The Beast' Thompson" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700" referrerPolicy="no-referrer" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-8">
+                        <p class="text-brand-red text-xs font-black uppercase tracking-widest mb-2">Lead Fitness Instructor</p>
+                        <h3 class="text-2xl font-black mb-1">Mike 'The Beast' Thompson</h3>
+                        <p class="text-gray-400 text-sm">HIIT & Mobility</p>
+                    </div>
+                </div>
+                <!-- Coach 3 -->
+                <div class="reveal-scale group relative aspect-[3/4] overflow-hidden rounded-sm border border-white/5" style="transition-delay: 0.2s;">
+                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1974&auto=format&fit=crop" alt="David Vance" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700" referrerPolicy="no-referrer" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-8">
+                        <p class="text-brand-red text-xs font-black uppercase tracking-widest mb-2">Nutrition Specialist</p>
+                        <h3 class="text-2xl font-black mb-1">David Vance</h3>
+                        <p class="text-gray-400 text-sm">Fat Loss & Performance</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Schedule -->
+    <section id="schedule" class="py-32 bg-brand-dark">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20 reveal">
+                <h2 class="text-5xl font-black mb-4">WEEKLY SCHEDULE</h2>
+                <p class="text-gray-500 uppercase tracking-widest text-sm">Plan your battle</p>
+            </div>
+
+            <div class="overflow-x-auto reveal">
+                <table class="w-full border-collapse border border-white/5 text-sm">
+                    <thead>
+                        <tr class="bg-brand-gray">
+                            <th class="p-4 border border-white/5 text-left uppercase tracking-widest font-black">Time</th>
+                            <th class="p-4 border border-white/5 text-left uppercase tracking-widest font-black">Mon</th>
+                            <th class="p-4 border border-white/5 text-left uppercase tracking-widest font-black">Tue</th>
+                            <th class="p-4 border border-white/5 text-left uppercase tracking-widest font-black">Wed</th>
+                            <th class="p-4 border border-white/5 text-left uppercase tracking-widest font-black">Thu</th>
+                            <th class="p-4 border border-white/5 text-left uppercase tracking-widest font-black">Fri</th>
+                            <th class="p-4 border border-white/5 text-left uppercase tracking-widest font-black">Sat</th>
+                            <th class="p-4 border border-white/5 text-left uppercase tracking-widest font-black">Sun</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="hover:bg-white/5 transition-colors">
+                            <td class="p-4 border border-white/5 font-bold text-brand-red">06:00 AM</td>
+                            <td class="p-4 border border-white/5 text-gray-400">Powerlifting</td>
+                            <td class="p-4 border border-white/5 text-gray-400">HIIT</td>
+                            <td class="p-4 border border-white/5 text-gray-400">Mobility</td>
+                            <td class="p-4 border border-white/5 text-gray-400">Powerlifting</td>
+                            <td class="p-4 border border-white/5 text-gray-400">HIIT</td>
+                            <td class="p-4 border border-white/5 text-gray-400">Open Gym</td>
+                            <td class="p-4 border border-white/5 text-gray-400">Rest</td>
+                        </tr>
+                        <tr class="hover:bg-white/5 transition-colors">
+                            <td class="p-4 border border-white/5 font-bold text-brand-red">09:00 AM</td>
+                            <td class="p-4 border border-white/5 text-gray-400">HIIT</td>
+                            <td class="p-4 border border-white/5 text-gray-400">Strength</td>
+                            <td class="p-4 border border-white/5 text-gray-400">HIIT</td>
+                            <td class="p-4 border border-white/5 text-gray-400">Strength</td>
+                            <td class="p-4 border border-white/5 text-gray-400">HIIT</td>
+                            <td class="p-4 border border-white/5 text-gray-400">Yoga</td>
+                            <td class="p-4 border border-white/5 text-gray-400">Rest</td>
+                        </tr>
+                        <tr class="hover:bg-white/5 transition-colors">
+                            <td class="p-4 border border-white/5 font-bold text-brand-red">12:00 PM</td>
+                            <td class="p-4 border border-white/5 text-gray-400">Open Gym</td>
+                            <td class="p-4 border border-white/5 text-gray-400">Open Gym</td>
+                            <td class="p-4 border border-white/5 text-gray-400">Open Gym</td>
+                            <td class="p-4 border border-white/5 text-gray-400">Open Gym</td>
+                            <td class="p-4 border border-white/5 text-gray-400">Open Gym</td>
+                            <td class="p-4 border border-white/5 text-gray-400">Open Gym</td>
+                            <td class="p-4 border border-white/5 text-gray-400">Rest</td>
+                        </tr>
+                        <tr class="hover:bg-white/5 transition-colors">
+                            <td class="p-4 border border-white/5 font-bold text-brand-red">05:00 PM</td>
+                            <td class="p-4 border border-white/5 text-gray-400">Strength</td>
+                            <td class="p-4 border border-white/5 text-gray-400">HIIT</td>
+                            <td class="p-4 border border-white/5 text-gray-400">Strength</td>
+                            <td class="p-4 border border-white/5 text-gray-400">HIIT</td>
+                            <td class="p-4 border border-white/5 text-gray-400">Strength</td>
+                            <td class="p-4 border border-white/5 text-gray-400">Rest</td>
+                            <td class="p-4 border border-white/5 text-gray-400">Rest</td>
+                        </tr>
+                        <tr class="hover:bg-white/5 transition-colors">
+                            <td class="p-4 border border-white/5 font-bold text-brand-red">07:00 PM</td>
+                            <td class="p-4 border border-white/5 text-gray-400">Boxing</td>
+                            <td class="p-4 border border-white/5 text-gray-400">Yoga</td>
+                            <td class="p-4 border border-white/5 text-gray-400">Boxing</td>
+                            <td class="p-4 border border-white/5 text-gray-400">Yoga</td>
+                            <td class="p-4 border border-white/5 text-gray-400">Boxing</td>
+                            <td class="p-4 border border-white/5 text-gray-400">Rest</td>
+                            <td class="p-4 border border-white/5 text-gray-400">Rest</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="py-32 bg-brand-gray relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20 reveal">
+                <h2 class="text-5xl font-black mb-4">REAL TRANSFORMATIONS</h2>
+                <p class="text-gray-500 uppercase tracking-widest text-sm">The proof is in the work</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="reveal-scale bg-brand-dark p-10 rounded-sm border border-white/5 relative">
+                    <i data-lucide="quote" class="absolute top-6 right-6 w-10 h-10 text-brand-red/20"></i>
+                    <div class="flex items-center gap-4 mb-8">
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1974&auto=format&fit=crop" alt="Alex Rivera" class="w-16 h-16 rounded-full object-cover grayscale" referrerPolicy="no-referrer" />
+                        <div>
+                            <h4 class="font-bold text-white">Alex Rivera</h4>
+                            <p class="text-xs text-brand-red font-black uppercase tracking-tighter">Lost 40lbs in 6 months</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 italic leading-relaxed">"Iron Haven changed my life. The atmosphere is electric and the coaches actually care about your progress."</p>
+                    <div class="flex gap-1 mt-6">
+                        <i data-lucide="star" class="w-4 h-4 fill-brand-red text-brand-red"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-brand-red text-brand-red"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-brand-red text-brand-red"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-brand-red text-brand-red"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-brand-red text-brand-red"></i>
+                    </div>
+                </div>
+                <!-- Testimonial 2 -->
+                <div class="reveal-scale bg-brand-dark p-10 rounded-sm border border-white/5 relative" style="transition-delay: 0.1s;">
+                    <i data-lucide="quote" class="absolute top-6 right-6 w-10 h-10 text-brand-red/20"></i>
+                    <div class="flex items-center gap-4 mb-8">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop" alt="James Wilson" class="w-16 h-16 rounded-full object-cover grayscale" referrerPolicy="no-referrer" />
+                        <div>
+                            <h4 class="font-bold text-white">James Wilson</h4>
+                            <p class="text-xs text-brand-red font-black uppercase tracking-tighter">Gained 15lbs of lean muscle</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 italic leading-relaxed">"I've never felt stronger. The strength programs here are on another level compared to commercial gyms."</p>
+                    <div class="flex gap-1 mt-6">
+                        <i data-lucide="star" class="w-4 h-4 fill-brand-red text-brand-red"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-brand-red text-brand-red"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-brand-red text-brand-red"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-brand-red text-brand-red"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-brand-red text-brand-red"></i>
+                    </div>
+                </div>
+                <!-- Testimonial 3 -->
+                <div class="reveal-scale bg-brand-dark p-10 rounded-sm border border-white/5 relative" style="transition-delay: 0.2s;">
+                    <i data-lucide="quote" class="absolute top-6 right-6 w-10 h-10 text-brand-red/20"></i>
+                    <div class="flex items-center gap-4 mb-8">
+                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1974&auto=format&fit=crop" alt="Marcus Thorne" class="w-16 h-16 rounded-full object-cover grayscale" referrerPolicy="no-referrer" />
+                        <div>
+                            <h4 class="font-bold text-white">Marcus Thorne</h4>
+                            <p class="text-xs text-brand-red font-black uppercase tracking-tighter">Professional Athlete</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 italic leading-relaxed">"The equipment and the community keep me coming back. This is where champions are built."</p>
+                    <div class="flex gap-1 mt-6">
+                        <i data-lucide="star" class="w-4 h-4 fill-brand-red text-brand-red"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-brand-red text-brand-red"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-brand-red text-brand-red"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-brand-red text-brand-red"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-brand-red text-brand-red"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-32 relative overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img 
+                src="https://images.unsplash.com/photo-1590239068512-63276724eb3b?q=80&w=2071&auto=format&fit=crop" 
+                alt="Final CTA" 
+                class="w-full h-full object-cover opacity-30 grayscale"
+                referrerPolicy="no-referrer"
+            />
+            <div class="absolute inset-0 bg-brand-dark/80"></div>
+        </div>
+
+        <div class="max-w-4xl mx-auto px-6 text-center relative z-10 reveal">
+            <h2 class="text-6xl md:text-8xl font-black mb-8 leading-none">
+                READY TO <br />
+                <span class="text-brand-red">EVOLVE?</span>
+            </h2>
+            <p class="text-xl text-gray-400 mb-12 max-w-2xl mx-auto">
+                Your transformation starts with a single decision. Don't let another day pass 
+                being less than your potential.
+            </p>
+            <a href="#contact" class="inline-block bg-brand-red text-white px-12 py-6 rounded-sm font-black text-xl uppercase tracking-tighter hover:scale-105 transition-transform">
+                Join the Haven Now
+            </a>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="py-32 bg-brand-gray relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-20">
+                <div class="reveal-left">
+                    <h2 class="text-5xl font-black mb-8">GET IN TOUCH</h2>
+                    <p class="text-xl text-gray-400 mb-12 leading-relaxed">
+                        Ready to start your journey? Fill out the form and our team will get back to you 
+                        within 24 hours to schedule your free consultation.
+                    </p>
+                    
+                    <div class="space-y-8">
+                        <div class="flex items-center gap-6">
+                            <div class="w-12 h-12 bg-brand-red/10 flex items-center justify-center rounded-sm">
+                                <i data-lucide="mail" class="text-brand-red w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white uppercase tracking-widest text-xs mb-1">Email Us</h4>
+                                <p class="text-gray-400">contact@ironhaven.com</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-6">
+                            <div class="w-12 h-12 bg-brand-red/10 flex items-center justify-center rounded-sm">
+                                <i data-lucide="phone" class="text-brand-red w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white uppercase tracking-widest text-xs mb-1">Call Us</h4>
+                                <p class="text-gray-400">+1 (555) 000-IRON</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-6">
+                            <div class="w-12 h-12 bg-brand-red/10 flex items-center justify-center rounded-sm">
+                                <i data-lucide="map-pin" class="text-brand-red w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white uppercase tracking-widest text-xs mb-1">Visit Us</h4>
+                                <p class="text-gray-400">123 Performance Way, Strength District, NY</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reveal-right bg-brand-dark p-10 rounded-sm border border-white/5">
+                    <form action="https://formspree.io/f/maqldzwl" method="POST" class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-xs font-black uppercase tracking-widest text-gray-500 mb-2">Full Name</label>
+                            <input 
+                                type="text" 
+                                id="name" 
+                                name="name" 
+                                required 
+                                placeholder="John Doe"
+                                class="w-full bg-brand-gray border border-white/10 rounded-sm px-4 py-4 text-white focus:outline-none focus:border-brand-red transition-colors"
+                            />
+                        </div>
+                        <div>
+                            <label for="email" class="block text-xs font-black uppercase tracking-widest text-gray-500 mb-2">Email Address</label>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                name="email" 
+                                required 
+                                placeholder="john@example.com"
+                                class="w-full bg-brand-gray border border-white/10 rounded-sm px-4 py-4 text-white focus:outline-none focus:border-brand-red transition-colors"
+                            />
+                        </div>
+                        <div>
+                            <label for="message" class="block text-xs font-black uppercase tracking-widest text-gray-500 mb-2">Message (Optional)</label>
+                            <textarea 
+                                id="message" 
+                                name="message" 
+                                rows="4" 
+                                placeholder="Tell us about your goals..."
+                                class="w-full bg-brand-gray border border-white/10 rounded-sm px-4 py-4 text-white focus:outline-none focus:border-brand-red transition-colors resize-none"
+                            ></textarea>
+                        </div>
+                        <button 
+                            type="submit" 
+                            class="w-full bg-brand-red text-white py-5 rounded-sm font-black text-lg uppercase tracking-tighter hover:bg-white hover:text-black transition-all"
+                        >
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-20 bg-brand-dark border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-12 mb-20">
+                <div class="col-span-2">
+                    <div class="flex items-center gap-2 mb-6">
+                        <div class="w-8 h-8 bg-brand-red flex items-center justify-center rounded-sm rotate-45">
+                            <i data-lucide="dumbbell" class="-rotate-45 text-white w-5 h-5"></i>
+                        </div>
+                        <span class="font-display text-xl font-black tracking-tighter">IRON HAVEN</span>
+                    </div>
+                    <p class="text-gray-500 max-w-sm mb-8">
+                        The ultimate destination for performance training and body transformation. 
+                        Built for the dedicated.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="text-xs uppercase tracking-widest text-gray-400 hover:text-white transition-colors">Instagram</a>
+                        <a href="#" class="text-xs uppercase tracking-widest text-gray-400 hover:text-white transition-colors">Twitter</a>
+                        <a href="#" class="text-xs uppercase tracking-widest text-gray-400 hover:text-white transition-colors">YouTube</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-6 uppercase tracking-widest text-sm">Quick Links</h4>
+                    <ul class="space-y-4 text-gray-500 text-sm">
+                        <li><a href="#membership" class="hover:text-white transition-colors">Membership</a></li>
+                        <li><a href="#coaches" class="hover:text-white transition-colors">Coaches</a></li>
+                        <li><a href="#schedule" class="hover:text-white transition-colors">Schedule</a></li>
+                        <li><a href="#contact" class="hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-6 uppercase tracking-widest text-sm">Location</h4>
+                    <p class="text-gray-500 text-sm leading-relaxed">
+                        123 Performance Way<br />
+                        Strength District, NY 10001<br />
+                        contact@ironhaven.com
+                    </p>
+                </div>
+            </div>
+            <div class="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+                <p class="text-xs text-gray-600 uppercase tracking-widest">© 2026 IRON HAVEN. ALL RIGHTS RESERVED.</p>
+                <div class="flex gap-8 text-xs text-gray-600 uppercase tracking-widest">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Reveal animations on scroll
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
